@@ -3,7 +3,7 @@ volumes:
   contrail_control_dns:
 services:
   node-init:
-    image: "{{ container_registry }}/contrail-node-init:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-node-init:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_control.env
     environment:
       - CONTRAIL_STATUS_IMAGE="{{ container_registry }}/contrail-status:{{ contrail_version_tag }}"
@@ -15,7 +15,7 @@ services:
       - /etc/contrail/ssl:/etc/contrail/ssl
       - /etc/sysctl.d:/etc/sysctl.d
   nodemgr:
-    image: "{{ container_registry }}/contrail-nodemgr:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-nodemgr:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_control.env
     environment:
       - NODE_TYPE=control
@@ -40,7 +40,7 @@ services:
     depends_on:
       - node-init
   control:
-    image: "{{ container_registry }}/contrail-controller-control-control:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-control-control:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_control.env
     volumes:
@@ -63,7 +63,7 @@ services:
         max-file: "{{ control_log_max_file }}"
 {% if roles[instance_name].control.location is undefined %}
   named:
-    image: "{{ container_registry }}/contrail-controller-control-named:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-control-named:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_control.env
     privileged: true
@@ -83,7 +83,7 @@ services:
         max-size: "{{ control_log_max_size }}"
         max-file: "{{ control_log_max_file }}"
   dns:
-    image: "{{ container_registry }}/contrail-controller-control-dns:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-control-dns:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_control.env
     pid: host

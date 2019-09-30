@@ -4,7 +4,7 @@ volumes:
   analytics_zookeeper:
 services:
   node-init:
-    image: "{{ container_registry }}/contrail-node-init:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-node-init:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
       - CONTRAIL_STATUS_IMAGE="{{ container_registry }}/contrail-status:{{ contrail_version_tag }}"
@@ -16,7 +16,7 @@ services:
       - /etc/contrail/ssl:/etc/contrail/ssl
       - /etc/sysctl.d:/etc/sysctl.d
   nodemgr:
-    image: "{{ container_registry }}/contrail-nodemgr:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-nodemgr:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
       - NODE_TYPE=database
@@ -43,7 +43,7 @@ services:
     depends_on:
       - node-init
   kafka:
-    image: "{{ container_registry }}/contrail-external-kafka:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-external-kafka:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common.env
     environment:
@@ -60,7 +60,7 @@ services:
     volumes:
      - /etc/hosts:/etc/hosts
   cassandra:
-    image: "{{ container_registry }}/contrail-external-cassandra:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-external-cassandra:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
       - CASSANDRA_SEEDS={{ cassandra_seeds }}
@@ -83,7 +83,7 @@ services:
         max-file: "{{ analytics_db_log_max_file }}"
     restart: always
   zookeeper:
-    image: "{{ container_registry }}/contrail-external-zookeeper:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-external-zookeeper:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
       - ZOOKEEPER_NODES={{ zookeeper_nodes }}

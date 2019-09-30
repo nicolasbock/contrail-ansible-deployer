@@ -1,7 +1,7 @@
 version: '2'
 services:
   node-init:
-    image: "{{ container_registry }}/contrail-node-init:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-node-init:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_analytics.env
     environment:
       - CONTRAIL_STATUS_IMAGE="{{ container_registry }}/contrail-status:{{ contrail_version_tag }}"
@@ -13,7 +13,7 @@ services:
       - /etc/contrail/ssl:/etc/contrail/ssl
       - /etc/sysctl.d:/etc/sysctl.d
   nodemgr:
-    image: "{{ container_registry }}/contrail-nodemgr:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-nodemgr:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_analytics.env
     environment:
       - NODE_TYPE=analytics
@@ -38,7 +38,7 @@ services:
     depends_on:
       - node-init
   api:
-    image: "{{ container_registry }}/contrail-analytics-api:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-analytics-api:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_analytics.env
     volumes:
@@ -60,7 +60,7 @@ services:
         max-size: "{{ analytics_log_max_size }}"
         max-file: "{{ analytics_log_max_file }}"
   collector:
-    image: "{{ container_registry }}/contrail-analytics-collector:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-analytics-collector:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_analytics.env
     volumes:
@@ -82,7 +82,7 @@ services:
         max-size: "{{ analytics_log_max_size }}"
         max-file: "{{ analytics_log_max_file }}"
   query-engine:
-    image: "{{ container_registry }}/contrail-analytics-query-engine:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-analytics-query-engine:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_analytics.env
     volumes:
@@ -104,7 +104,7 @@ services:
         max-size: "{{ analytics_log_max_size }}"
         max-file: "{{ analytics_log_max_file }}"
   alarm-gen:
-    image: "{{ container_registry }}/contrail-analytics-alarm-gen:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-analytics-alarm-gen:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_analytics.env
     volumes:
@@ -126,7 +126,7 @@ services:
         max-size: "{{ analytics_log_max_size }}"
         max-file: "{{ analytics_log_max_file }}"
   snmp-collector:
-    image: "{{ container_registry }}/contrail-analytics-snmp-collector:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-analytics-snmp-collector:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_analytics.env
     volumes:
@@ -148,7 +148,7 @@ services:
         max-size: "{{ analytics_log_max_size }}"
         max-file: "{{ analytics_log_max_file }}"
   topology:
-    image: "{{ container_registry }}/contrail-analytics-topology:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-analytics-topology:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_analytics.env
     volumes:

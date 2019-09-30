@@ -98,8 +98,13 @@
     vrouter_kernel_init_img_name: contrail-vrouter-kernel-init
   when: ansible_os_family == 'RedHat'
 
+- name: set vrouter kernel init image name
+  set_fact:
+    vrouter_kernel_init_img_name: contrail-vrouter-kernel-init
+  when: ansible_os_family == 'Suse'
+
 - name: update image
-  shell: "docker pull {{ container_registry }}/{{ item }}:{{ contrail_version_tag }}"
+  shell: "docker pull {{ container_registry }}/contrail/{{ item }}:{{ contrail_version_tag }}"
   with_items:
     - contrail-node-init
     - contrail-nodemgr
@@ -121,7 +126,7 @@
   when: roles[instance_name].vrouter.AGENT_MODE is undefined or roles[instance_name].vrouter.AGENT_MODE != 'dpdk'
 
 - name: update image for dpdk vrouter
-  shell: "docker pull {{ container_registry }}/{{ item }}:{{ contrail_version_tag }}"
+  shell: "docker pull {{ container_registry }}/contrail/{{ item }}:{{ contrail_version_tag }}"
   with_items:
     - contrail-node-init
     - contrail-nodemgr

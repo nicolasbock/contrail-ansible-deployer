@@ -83,7 +83,7 @@
   when: location is defined
 
 - name: update image
-  shell: "docker pull {{ container_registry }}/{{ item }}:{{ contrail_version_tag }}"
+  shell: "docker pull {{ container_registry }}/contrail/{{ item }}:{{ contrail_version_tag }}"
   with_items:
     - contrail-node-init
     - contrail-nodemgr

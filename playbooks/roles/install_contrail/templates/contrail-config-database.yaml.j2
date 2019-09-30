@@ -4,10 +4,10 @@ volumes:
  config_zookeeper:
 services:
   node-init:
-    image: "{{ container_registry }}/contrail-node-init:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-node-init:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
-      - CONTRAIL_STATUS_IMAGE="{{ container_registry }}/contrail-status:{{ contrail_version_tag }}"
+      - CONTRAIL_STATUS_IMAGE="{{ container_registry }}/contrail/contrail-status:{{ contrail_version_tag }}"
     privileged: true
     pid: host
     network_mode: "host"
@@ -16,7 +16,7 @@ services:
       - /etc/contrail/ssl:/etc/contrail/ssl
       - /etc/sysctl.d:/etc/sysctl.d
   nodemgr:
-    image: "{{ container_registry }}/contrail-nodemgr:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-nodemgr:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
       - NODE_TYPE=config-database
@@ -43,7 +43,7 @@ services:
     depends_on:
       - node-init
   cassandra:
-    image: "{{ container_registry }}/contrail-external-cassandra:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-external-cassandra:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
      - CASSANDRA_SEEDS={{ cassandra_seeds }}
@@ -66,7 +66,7 @@ services:
         max-file: "{{ config_db_log_max_file }}"
     restart: always
   zookeeper:
-    image: "{{ container_registry }}/contrail-external-zookeeper:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-external-zookeeper:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
      - ZOOKEEPER_NODES={{ zookeeper_nodes }}
@@ -85,7 +85,7 @@ services:
     network_mode: "host"
     restart: always
   rabbitmq:
-    image: "{{ container_registry }}/contrail-external-rabbitmq:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-external-rabbitmq:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common.env
     environment:
      - RABBITMQ_NODES={{ rabbitmq_nodes }}

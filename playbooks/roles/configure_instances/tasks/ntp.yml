@@ -6,6 +6,7 @@
   with_items:
     - ntpdate
     - ntp
+  when: ansible_os_family != 'Suse'
 
 - name: set ntp service name
   set_fact:

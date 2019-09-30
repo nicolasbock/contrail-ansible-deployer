@@ -1,7 +1,7 @@
 version: '2'
 services:
   node-init:
-    image: "{{ container_registry }}/contrail-node-init:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-node-init:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_config.env
     environment:
       - CONTRAIL_STATUS_IMAGE="{{ container_registry }}/contrail-status:{{ contrail_version_tag }}"
@@ -13,7 +13,7 @@ services:
       - /etc/contrail/ssl:/etc/contrail/ssl
       - /etc/sysctl.d:/etc/sysctl.d
   nodemgr:
-    image: "{{ container_registry }}/contrail-nodemgr:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-nodemgr:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_config.env
     environment:
       - NODE_TYPE=config
@@ -38,7 +38,7 @@ services:
     depends_on:
       - node-init
   api:
-    image: "{{ container_registry }}/contrail-controller-config-api:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-config-api:{{ contrail_version_tag }}"
     env_file: /etc/contrail/common_config.env
     network_mode: "host"
     volumes:
@@ -63,7 +63,7 @@ services:
         max-size: "{{ config_log_max_size }}"
         max-file: "{{ config_log_max_file }}"
   svcmonitor:
-    image: "{{ container_registry }}/contrail-controller-config-svcmonitor:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-config-svcmonitor:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_config.env
     volumes:
@@ -85,7 +85,7 @@ services:
         max-size: "{{ config_log_max_size }}"
         max-file: "{{ config_log_max_file }}"
   schema:
-    image: "{{ container_registry }}/contrail-controller-config-schema:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-config-schema:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_config.env
     volumes:
@@ -107,7 +107,7 @@ services:
         max-size: "{{ config_log_max_size }}"
         max-file: "{{ config_log_max_file }}"
   devicemgr:
-    image: "{{ container_registry }}/contrail-controller-config-devicemgr:{{ contrail_version_tag }}"
+    image: "{{ container_registry }}/contrail/contrail-controller-config-devicemgr:{{ contrail_version_tag }}"
     network_mode: "host"
     env_file: /etc/contrail/common_config.env
     volumes:

@@ -1,10 +1,42 @@
 provider_config:
   bms:
+    ssh_pwd: root
+    ssh_user: linux
+    ntpserver: 192.168.124.10
 instances:
   bms1:
     provider: bms
-    ip: 192.168.1.100
+    ip: localhost
+    roles:
+      config_database:
+      config:
+      control:
+      analytics_database:
+      analytics:
+      webui:
 global_configuration:
-  CONTAINER_REGISTRY: michaelhenkel
+  REGISTRY_PRIVATE_INSECURE: True
 contrail_configuration:
-  CONTRAIL_VERSION: ocata-5.0-20180219195722
+  UPGRADE_KERNEL: False
+  CONTRAIL_VERSION: master-256
+  CLOUD_ORCHESTRATOR: openstack
+  RABBITMQ_NODE_PORT: 5673
+  AUTH_MODE: keystone
+  KEYSTONE_AUTH_URL_VERSION: /v3
+  KEYSTONE_AUTH_HOST: 192.168.124.81
+  KEYSTONE_AUTH_ADMIN_TENANT: admin
+  KEYSTONE_AUTH_ADMIN_USER: admin
+  KEYSTONE_AUTH_ADMIN_PASSWORD: crowbar
+  KEYSTONE_AUTH_PROJECT_DOMAIN_NAME: Default
+  CONTROLLER_NODES: 192.168.124.25
+  CONTROL_NODES: 192.168.124.25
+  ANALYTICSDB_NODES: 192.168.124.25
+  WEBUI_NODES: 192.168.124.25
+  ANALYTICS_NODES: 192.168.124.25
+  CONFIGDB_NODES: 192.168.124.25
+  CONFIG_NODES: 192.168.124.25
+  METADATA_PROXY_SECRET: sCyGW2C7kyf4
+
+
+kolla_config:
+  with_kolla : False

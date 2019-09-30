@@ -124,6 +124,7 @@
     openstack_internal_vip: "{{ kolla_config.kolla_globals.kolla_internal_vip_address }}"
   when:
     - contrail_configuration.CLOUD_ORCHESTRATOR == 'openstack'
+    - kolla_config.with_kolla
     - kolla_config.kolla_globals.enable_haproxy is not defined or (kolla_config.kolla_globals.enable_haproxy | bool)
   tags:
    - always
@@ -133,6 +134,7 @@
     contrail_configuration: "{{ contrail_configuration | combine({item.name: openstack_internal_vip }) }}"
   when:
     - item.is_not_defined | bool
+    - kolla_config.with_kolla
     - contrail_configuration.CLOUD_ORCHESTRATOR == 'openstack'
   tags:
     - always
@@ -142,4 +144,3 @@
     - { name: 'computeManager_ip', is_not_defined: "{{ contrail_configuration.computeManager_ip is not defined }}" }
     - { name: 'imageManager_ip', is_not_defined: "{{ contrail_configuration.imageManager_ip is not defined }}" }
     - { name: 'networkManager_ip', is_not_defined: "{{ contrail_configuration.networkManager_ip is not defined }}" }
-
